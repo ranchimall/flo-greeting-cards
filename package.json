@@ -1,0 +1,31 @@
+{
+  "name": "flocards",
+  "version": "1.0.0",
+  "description": "A greeting card generating app based on FLO Blockchain",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "browserify": "browserify public/js/main.js -o public/js/bundle.js",
+    "watch": "watchify public/js/main.js -o public/js/bundle.js"
+  },
+  "author": "Abhishek Sinha",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bitcoin-core": "^2.0.0",
+    "body-parser": "^1.18.3",
+    "browserify": "^16.2.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "express-layout": "^0.1.0",
+    "express-session": "^1.15.6",
+    "express-validator": "^5.3.0",
+    "helmet": "^3.13.0",
+    "html-pdf": "^2.2.0",
+    "lodash": "^4.17.10",
+    "node-fetch": "^2.2.0",
+    "watchify": "^3.11.0"
+  }
+}
