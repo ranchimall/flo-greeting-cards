@@ -17,8 +17,15 @@
 <% if(data.card_id) { %>
 
     <div class="form-group" id="pdfignore">
+
+      <label for="_to">To: </label>
+      <input type="text" name="_to" class="form-control stick_text" id="_to" placeholder="Name of the receiver">
+
+      <label for="_from">From: </label>
+      <input type="text" name="_from" id="_from" class="form-control stick_text" placeholder="Name of the sender">
+
       <label for="_bdata">Your message:</label>
-      <textarea class="form-control" id="_bdata" name="_bdata"></textarea>
+      <textarea id="_bdata" class="form-control stick_text" placeholder="Your message here"name="_bdata"></textarea>
 
       <input type="hidden" id="_cardid" name="_cardid" value="<%=data.card_id%>" >
       <br>
@@ -26,9 +33,25 @@
     </div>
 
     <div id="pdfcontent"> 
-      <h5>Happy Diwali</h5>
-      <img src="/images/<%=data.card_id%>.jpg" alt="images" width="200" height="210">
-      <strong>- John Doe</strong>
+
+      <div class="card mb-3 text-center">
+        <div class="card-body">
+          <h5 class="card-title">Dear <span id="span_from">Alice</span></h5>
+          <p class="card-text"><i>Happy birthday to you.</i></p>
+          <p class="card-text"><small class="text-muted">From <span id="span_to">Bob</span></small></p>
+        </div>
+        <div class="text-center">
+            <img  src="/images/<%=data.card_id%>.jpg" alt="Card image cap">
+        </div>
+        <div class="card-body">
+          <p class="card-text"><span id="span_user_msg">You’re Beautiful Inside and Out! Hope your Birthday is a Spectacular One, You Deserve It! Happy Birthday!</span></p>
+          <p class="card-text">
+            <img src="/images/FLO_teal.png" alt="FLO logo" width="50" height="50">
+            <p><small class="text-muted">--- FLO Blockchian---</small></p>
+          </p>
+        </div>
+      </div>
+
     </div>    
 <%}%>
 
