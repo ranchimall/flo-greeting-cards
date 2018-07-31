@@ -26,39 +26,45 @@ router.get('/write/:card_id', (req, res)=>{
   })
 })
 
-router.post('/write', [check('_bdata').isLength({min:1}).withMessage('Please write some remarks!').trim(), 
-check('_cardid').isLength({min:1}).withMessage('Could not find the card id!').trim()],
+router.post('/write', [
+  check('_bdata')
+    .isLength({min:1})
+    .withMessage('Please write some remarks!')
+    .trim(),
+  check('_cardid')
+    .isLength({min:1})
+    .withMessage('Could not find the card id!')
+    .trim()
+],
   (req,res)=>{
     const errors = validationResult(req)
     if(!errors.isEmpty()) {
       return res.render('write', {
           data: req.body,
           errors: errors.mapped(),
-          title: 'Please Write your message'
+          title: 'Please correct your errors'
       })
     }
 
     const data = matchedData(req)
 
-    let remarks = data._bdata;
+    let user_msg = data._bdata;
     let card_id = data._cardid;
 
     var toaddress = "oXCsMUyX3mLJEdnn8SXoH6gyPW9Jd6kjYu";
     var amount = 1;
+    
+    try {
+        client.sendToAddress(toaddress, amount, "Greetings App", "REBC", false, false, 1, 'UNSET', user_msg)
+        .then((txnid) => {
+          console.log(txnid)
+          res.json({"error":false, "txnid":txnid, "card_id":card_id, "user_msg":user_msg})
+        });
+    }catch(err){
+        console.log("Unable to send FLO." + err.message);
+    }
 
-    res.json({"txnid":"zdfjhdzjfhzhfjhzekjhfjhf", "card_id":card_id})
-    // try {
-    //     client.sendToAddress(toaddress, amount, "Greetings App", "REBC", false, false, 1, 'UNSET', remarks)
-    //     .then((txnid) => {
-    //       console.log(txnid)
-    //       res.json({"txnid":txnid, "card_id":card_id})
-    //     });
-    // }catch(err){
-    //     console.log("Unable to send FLO." + err.message);
-    // }
-
-    // req.flash('success', 'Your remarks was successfully entered.')
-    // res.redirect('/')
+    //res.json({"error":true, "txnid":null, "card_id":null, "user_msg":null})
 
   }
 )

@@ -16,7 +16,7 @@
 
 <% if(data.card_id) { %>
 
-  <div class="form-group">
+    <div class="form-group" id="pdfignore">
       <label for="_bdata">Your message:</label>
       <textarea class="form-control" id="_bdata" name="_bdata"></textarea>
 
@@ -25,6 +25,11 @@
       <button type="submit" class="btn btn-primary" id="bc-btn">Submit</button>
     </div>
 
+    <div id="pdfcontent"> 
+      <h5>Happy Diwali</h5>
+      <img src="/images/<%=data.card_id%>.jpg" alt="images" width="200" height="210">
+      <strong>- John Doe</strong>
+    </div>    
 <%}%>
 
 </div> <!-- container-->
