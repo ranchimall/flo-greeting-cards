@@ -1,4 +1,8 @@
+window.$ = window.jQuery = require('jquery');    
+var bootstrap = require('bootstrap');
+
 const html2canvas = require('html2canvas');
+const QRCode = require('qrcode');
 
 $(document).on('keyup', '.stick_text', function() {
   var btn = this;
@@ -17,6 +21,7 @@ $(document).on('keyup', '.stick_text', function() {
 });
 
 $(document).on('click', '#bc-btn', function() {
+    console.log("okok");
   var text = $('#_bdata').val();
   var _from = $('#_from').val();
   var _to = $('#_to').val();
@@ -27,14 +32,33 @@ $(document).on('click', '#bc-btn', function() {
       data: {_bdata:text,_from:_from, _to:_to, _cardid:_cardid},
       success: function(data) {
 
-        html2canvas(document.getElementById("pdfcontent"), { allowTaint: true }).then(function(canvas) {
-            var img = canvas.toDataURL("image/png");
-            var doc = new jsPDF('p', 'mm', 'a3');
-            doc.addImage(img, 'PNG', 10, 10);
-            doc.save("test.pdf");
-            doc.autoPrint();
-        });
+        var txnid = $.trim(data.txnid);
+        if(txnid.length < 1) {
+            console.log("No Tx found");    
+            return false;
+        }
 
+        var urlstring = `https://testnet.florincoin.info/tx/${txnid}`;
+
+        var canvas = document.getElementById('canvas');
+
+        var opts = {
+            width: 200,
+            errorCorrectionLevel: 'H'
+          }
+
+        QRCode.toCanvas(canvas, urlstring, opts, function (error) {
+            if (error) console.error(error)
+            console.log('Qr generated! for : '.urlstring);
+            html2canvas(document.getElementById("pdfcontent"), { allowTaint: true }).then(function(canvas) {
+                let namepdf = "flo-greetings-"+new Date().getTime()+".pdf";
+                var img = canvas.toDataURL("image/png");
+                var doc = new jsPDF('p', 'mm', 'a3');
+                doc.addImage(img, 'PNG', 1, 2);
+                doc.save(namepdf);
+                doc.autoPrint();
+            });
+        })
       },
       error: function(jqXHR, textStatus, errorThrown) {
         console.log(textStatus, errorThrown);

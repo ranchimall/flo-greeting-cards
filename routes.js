@@ -8,7 +8,6 @@ const client = require('./server.js');
 
 var path = require('path')
 var fs = require('fs');
-var pdf = require('html-pdf');
 
 router.get('/', (req, res)=>{
     res.render('index.ejs', {
@@ -39,7 +38,7 @@ router.post('/write', [
     .trim(),
   check('_bdata')
     .isLength({min:1})
-    .isAlphanumeric()
+    //.isAlphanumeric()
     .withMessage('Please write the message to be sent to receiver!')
     .trim(),
   check('_cardid')
@@ -50,6 +49,8 @@ router.post('/write', [
 ],
   (req,res)=>{
     const errors = validationResult(req)
+    //console.log(errors.mapped());
+    
     if(!errors.isEmpty()) {
       return res.render('write', {
           data: req.body,
@@ -81,7 +82,39 @@ router.post('/write', [
 
     //res.json({"error":true, "txnid":null, "card_id":null, "user_msg":null})
 
-  }
-)
+   }
+  )
+
+  router.get('/bithday-cards', (req, res)=>{
+    res.render('bithday-cards.ejs', {
+      data: {},
+      errors: {},
+      title: 'Welcome! Select a bithday card card of your choice.'
+    })
+  })
+
+  router.get('/christmas-cards', (req, res)=>{
+    res.render('christmas-cards.ejs', {
+      data: {},
+      errors: {},
+      title: 'Welcome! Select a Christmas card card of your choice.'
+    })
+  })
+
+  router.get('/diwali-cards', (req, res)=>{
+    res.render('diwali-cards.ejs', {
+      data: {},
+      errors: {},
+      title: 'Welcome! Select a Diwali card card of your choice.'
+    })
+  })
+
+  router.get('/new-year-cards', (req, res)=>{
+    res.render('new-year-cards.ejs', {
+      data: {},
+      errors: {},
+      title: 'Welcome! Select a New Year card card of your choice.'
+    })
+  })
 
 module.exports = router
