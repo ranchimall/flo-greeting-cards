@@ -27357,11 +27357,11 @@ $(document).on('keyup', '.stick_text', function() {
 });
 
 $(document).on('click', '#bc-btn', function() {
-    console.log("okok");
   var text = $('#_bdata').val();
   var _from = $('#_from').val();
   var _to = $('#_to').val();
   var _cardid = $('#_cardid').val();
+  
     $.ajax({
       type: 'post',
       url: '/write',

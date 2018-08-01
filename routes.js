@@ -28,12 +28,12 @@ router.get('/write/:card_id', (req, res)=>{
 router.post('/write', [
   check('_from')
     .isLength({min:1})
-    .isAlpha()
+    //.isAlpha()
     .withMessage('Please specify the name of the sender!')
     .trim(),
   check('_to')
     .isLength({min:1})
-    .isAlpha()
+    //.isAlpha()
     .withMessage('Please specify the name of the receiver!')
     .trim(),
   check('_bdata')
@@ -49,7 +49,7 @@ router.post('/write', [
 ],
   (req,res)=>{
     const errors = validationResult(req)
-    //console.log(errors.mapped());
+    console.log(errors.mapped());
     
     if(!errors.isEmpty()) {
       return res.render('write', {
@@ -66,16 +66,18 @@ router.post('/write', [
     let _to = data._to;
     let card_id = data._cardid;
 
+    let txComment = `${_from} #flogreets to ${_to}: ${user_msg}`;
+
     var toaddress = "oXCsMUyX3mLJEdnn8SXoH6gyPW9Jd6kjYu";
     var amount = 1;
     
     try {
-        // client.sendToAddress(toaddress, amount, "Greetings App", "REBC Greetigs App", false, false, 1, 'UNSET', user_msg)
-        // .then((txnid) => {
-        //   console.log(txnid)
-        //   res.json({"error":false, "txnid":txnid, "_from":_from, "_to":_to, "card_id":card_id, "user_msg":user_msg})
-        // });
-        res.json({"error":false, "txnid":"TXIDKJKLGJLKSJLKGJSKJGK", "_from":_from, "_to":_to, "card_id":card_id, "user_msg":user_msg})
+        client.sendToAddress(toaddress, amount, "Greetings App", "REBC Greetigs App", false, false, 1, 'UNSET', txComment)
+        .then((txnid) => {
+          console.log(txnid)
+          res.json({"error":false, "txnid":txnid, "_from":_from, "_to":_to, "card_id":card_id, "user_msg":user_msg})
+        });
+        //res.json({"error":false, "txnid":"TXIDKJKLGJLKSJLKGJSKJGK", "_from":_from, "_to":_to, "card_id":card_id, "user_msg":user_msg})
     }catch(err){
         console.log("Unable to send FLO." + err.message);
     } 
