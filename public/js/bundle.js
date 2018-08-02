@@ -27381,11 +27381,11 @@ $(document).on('click', '#bc-btn', function() {
   var _to = $('#_to').val();
   var _cardid = $('#_cardid').val();
 
-  var atLeastOneIsChecked = $('input[name="chk[]"]:checked').length > 0;
-  // if (!atLeastOneIsChecked) {
-  //   alert('Please specify download option: Image and/or PDF');
-  //   return false;
-  // }
+  var atLeastOneIsChecked = $('input[name="chk"]').is(":checked");
+  if (!atLeastOneIsChecked) {
+    alert('Please specify download option: Image and/or PDF');
+    return false;
+  }
   
     $.ajax({
       type: 'post',
@@ -27414,12 +27414,14 @@ $(document).on('click', '#bc-btn', function() {
         QRCode.toCanvas(canvas, urlstring, opts, function (error) {
             if (error) console.error(error)
             console.log('Qr generated! for : '.urlstring);
+            // canvas in QRCode.toCanvas()is different to canvas below 
             html2canvas(document.getElementById("pdfcontent"), { allowTaint: true }).then(function(canvas) {
                 if (download_pdf==true) {
                   let namepdf = "flo-greetings-"+new Date().getTime()+".pdf";
-                  var img = canvas.toDataURL("image/png");
+                  var img = canvas.toDataURL("image/png"); 
                   var doc = new jsPDF('p', 'mm', 'a3');
-                  doc.addImage(img, 'PNG', 1, 2);
+                  doc.addImage(img, 'PNG', 0, 0);
+                  //doc.addImage(img, 'PNG', 1, 2);
                   doc.save(namepdf);
                   doc.autoPrint();
                 }
