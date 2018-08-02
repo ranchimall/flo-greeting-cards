@@ -28,6 +28,16 @@
       <textarea id="_bdata" class="form-control stick_text" placeholder="Your message here"name="_bdata"></textarea>
 
       <input type="hidden" id="_cardid" name="_cardid" value="<%=data.card_id%>" >
+      
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" name="chk" id="Checkpdf">
+        <label class="custom-control-label" for="Checkpdf">Download PDF</label>
+      </div>
+
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" name="chk" id="Checkimg">
+        <label class="custom-control-label" for="Checkimg">Download Image</label>
+      </div>
       <br>
       <button type="submit" class="btn btn-primary" id="bc-btn">Submit</button>
     </div>
@@ -39,10 +49,10 @@
           <h5 class="card-title">Dear <span id="span_to">Alice</span></h5>
         </div>
         <div class="text-center">
-            <img  src="/images/<%=data.card_id%>.jpg" alt="Card image cap">
+            <img src="/images/<%=data.card_id%>.jpg" alt="Card image cap" id="pdf-img">
         </div>
         <div class="card-body">
-          <p class="card-text"><span id="span_user_msg"><i>Your special message will appear here.</i></span></p>
+          <p class="card-text"><span id="span_user_msg" class="span_user_msg"><i>Your special message will appear here.</i></span></p>
           <p class="card-text"><small class="text-muted">From <span id="span_from">Bob</span></small></p>
           
           <p class="card-text">
@@ -50,7 +60,7 @@
           </p>
           
           <p class="card-text">
-            <img src="/images/rm.png" alt="Rabchi Mall logo" width="50" height="50">
+            <img src="/images/rm.png" alt="Ranchi Mall logo" width="50" height="50">
             <img src="/images/FLO_teal.png" alt="FLO logo" width="50" height="50">
             <p><small class="text-muted">--- A Ranchi Mall FLO Blockchian Product ---</small></p>
           </p>
