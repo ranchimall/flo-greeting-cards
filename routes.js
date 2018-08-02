@@ -72,17 +72,15 @@ router.post('/write', [
     var amount = 1;
     
     try {
-        client.sendToAddress(toaddress, amount, "Greetings App", "REBC Greetigs App", false, false, 1, 'UNSET', txComment)
-        .then((txnid) => {
-          console.log(txnid)
-          res.json({"error":false, "txnid":txnid, "_from":_from, "_to":_to, "card_id":card_id, "user_msg":user_msg})
-        });
-        //res.json({"error":false, "txnid":"TXIDKJKLGJLKSJLKGJSKJGK", "_from":_from, "_to":_to, "card_id":card_id, "user_msg":user_msg})
+        // client.sendToAddress(toaddress, amount, "Greetings App", "REBC Greetigs App", false, false, 1, 'UNSET', txComment)
+        // .then((txnid) => {
+        //   console.log(txnid)
+        //   res.json({"error":false, "txnid":txnid, "_from":_from, "_to":_to, "card_id":card_id, "user_msg":user_msg})
+        // });
+        res.json({"error":false, "txnid":"TXIDKJKLGJLKSJLKGJSKJGK", "_from":_from, "_to":_to, "card_id":card_id, "user_msg":user_msg})
     }catch(err){
         console.log("Unable to send FLO." + err.message);
     } 
-
-    //res.json({"error":true, "txnid":null, "card_id":null, "user_msg":null})
 
    }
   )
