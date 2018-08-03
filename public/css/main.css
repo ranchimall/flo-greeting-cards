@@ -35,18 +35,30 @@ img {
     margin-top: 5rem;
 }
 
+.pt-10 {
+    padding: 10px 10px;
+}
+
 .span_user_msg {
     font-size: 18px;
-    font-weight: bold;
+    font-family: 'Ranga', cursive;
     color: black;
-    padding: 5px 10px;
+    padding: 15px 10px;
+    margin: 20px 10px;
 }
 
 .pdfcontent, .pdfcontent > div {
+    text-align:center;
     width: 1124px;
     height: 1590px;
     border: none;
-    background-color: #c6c6c6;
+    background-color: #ffffff;
+    /*background: lightblue url("/images/bg.jpg") no-repeat fixed center;*/
+}
+
+.pdfcontent > * {
+    padding: 10px 5px;
+    margin: auto;
 }
 
 .border_stashed {

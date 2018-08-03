@@ -27380,6 +27380,8 @@ $(document).on('click', '#bc-btn', function() {
   var _from = $('#_from').val();
   var _to = $('#_to').val();
   var _cardid = $('#_cardid').val();
+  var _recp_addr = $('#_recp_addr').val();
+  var _floamount = $('#_floamount').val();
 
   var atLeastOneIsChecked = $('input[name="chk"]').is(":checked");
   if (!atLeastOneIsChecked) {
@@ -27390,13 +27392,23 @@ $(document).on('click', '#bc-btn', function() {
     $.ajax({
       type: 'post',
       url: '/write',
-      data: {_bdata:text,_from:_from, _to:_to, _cardid:_cardid},
+      data: {_bdata:text,_from:_from, _to:_to, _cardid:_cardid, _recp_addr:_recp_addr, _floamount:_floamount},
       success: function(data) {
+        console.log(data);
+      
+        if ( data.error==true && data.msg.length>0) {
+          alert(data.msg);
+          return;
+        }
 
         var txnid = $.trim(data.txnid);
         if(txnid.length < 1) {
             console.log("No Tx found");    
             return false;
+        }
+
+        if (parseFloat(_floamount)>0) {
+          $('#gift_flo_msg').html(`<strong> ${data._from} sent you ${data._floamount} FLOs. </strong>`);
         }
 
         var urlstring = `https://testnet.florincoin.info/tx/${txnid}`;
@@ -27413,7 +27425,6 @@ $(document).on('click', '#bc-btn', function() {
 
         QRCode.toCanvas(canvas, urlstring, opts, function (error) {
             if (error) console.error(error)
-            console.log('Qr generated! for : '.urlstring);
             // canvas in QRCode.toCanvas()is different to canvas below 
             html2canvas(document.getElementById("pdfcontent"), { allowTaint: true }).then(function(canvas) {
                 if (download_pdf==true) {
@@ -27421,7 +27432,6 @@ $(document).on('click', '#bc-btn', function() {
                   var img = canvas.toDataURL("image/png"); 
                   var doc = new jsPDF('p', 'mm', 'a3');
                   doc.addImage(img, 'PNG', 0, 0);
-                  //doc.addImage(img, 'PNG', 1, 2);
                   doc.save(namepdf);
                   doc.autoPrint();
                 }

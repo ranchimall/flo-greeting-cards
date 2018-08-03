@@ -28,6 +28,12 @@
       <textarea id="_bdata" class="form-control stick_text" placeholder="Your message here"name="_bdata"></textarea>
 
       <input type="hidden" id="_cardid" name="_cardid" value="<%=data.card_id%>" >
+
+      <label for="_recp_addr">(Optional) Receipient's Address: (Leave blank if you are not sending FLOs)</label>
+      <input type="text" class="form-control stick_text" name="_recp_addr" id="_recp_addr">
+
+      <label for="_floamount">(Optional) Amount of FLO to send in FLO unit: (Leave blank if you don't want to send FLO. Minimum 1 FLO, if sending) </label>
+      <input type="text" class="form-control stick_text" name="_floamount" id="_floamount">
       
       <div class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" name="chk" id="Checkpdf">
@@ -47,25 +53,27 @@
       <div id="pdfcontent" height="1000" width="1000" class="pdfcontent"> 
         <div class="card mb-3 text-center">
           <div class="card-body">
-            <h5 class="card-title">Dear <span id="span_to">Alice</span></h5>
-          </div>
-          <div class="text-center">
-              <img src="/images/<%=data.card_id%>.jpg" alt="Card image cap" id="pdf-img">
-          </div>
-          <div class="card-body">
-            <p class="card-text"><span id="span_user_msg" class="span_user_msg"><i>Your special message will appear here.</i></span></p>
-            <p class="card-text"><small class="text-muted">From <span id="span_from">Bob</span></small></p>
+            <h5 class="card-title"><span id="span_to">Alice</span></h5>
+            <div class="text-center">
+                <img src="/images/<%=data.card_id%>.jpg" alt="Card image cap" id="pdf-img">
+            </div>
+
+            <p class="card-text span_user_msg" id="span_user_msg"><i>Your special message will appear here.</i></p>
+            <p class="card-text text-muted">From <span id="span_from">Bob</span></p>
             
             <p class="card-text">
               <canvas id="canvas"></canvas>
             </p>
+            <p class="card-text" id="gift_flo_msg"></p>  
             
             <p class="card-text">
               <img src="/images/rm.png" alt="Ranchi Mall logo" width="50" height="50">
               <img src="/images/FLO_teal.png" alt="FLO logo" width="50" height="50">
               <p><small class="text-muted">--- A Ranchi Mall FLO Blockchian Product ---</small></p>
             </p>
+
           </div>
+        
         </div>
       </div>
 
