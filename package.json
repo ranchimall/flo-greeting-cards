@@ -6,10 +6,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "browserify public/js/main.js -o public/js/bundle.js",
-    "watch": "watchify public/js/main.js -o public/js/bundle.js"
+    "watch": "watchify public/js/main.js -o public/js/bundle.js",
+    "prestart": "npm run build",
+    "start": "nodemon --ignore public/js/bundle.js index.js",
+    "poststart":"npm run watch"
   },
   "author": "Abhishek Sinha",
   "license": "ISC",
+  "repository" :
+  { "type" : "git", 
+    "url" : "https://github.com/avishkarabhishek786/flo-greeting-cards.git"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "bitcoin-core": "^2.0.0",
@@ -32,5 +39,8 @@
     "popper.js": "^1.14.3",
     "qrcode": "^1.2.2",
     "watchify": "^3.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
   }
 }
